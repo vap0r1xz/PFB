@@ -14,4 +14,3 @@ def get_exchange_rate():
         return exchange_rate
     except:
         return False
-        test
