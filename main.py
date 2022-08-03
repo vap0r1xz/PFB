@@ -25,3 +25,28 @@ with open("summary_report.txt","w+") as file:
   
   # write to summary report 
     file.write("[HIGHEST OVERHEADS] " + overheads_return[0] + ": SGD" + str(overhead) + "\n")
+ # Get All Cash Deficits
+    cash_deficits = cash_on_hand.detect_cash_deficit()
+    if cash_deficits == False:
+        # If return value is false, write following response
+        file.write("[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY\n")
+    else:    
+        # Else loop all cash deficits and write them
+        for x in range(0,len(cash_deficits)):
+            # Calculate deficits into SGD terms and format to 2 decimal places
+            deficit = cash_deficits[x][1] * float(xchange_rate)
+            deficit = float("{:.2f}".format(deficit))
+            file.write("[CASH DEFICIT] DAY: " + str(cash_deficits[x][0]) + ", AMOUNT: SGD" + str(deficit) + "\n")
+            
+    # Get All Profit Deficits
+    profit_deficits = profit_loss.detect_profit_deficit()
+    if profit_deficits == False:
+        # If return value is false, write following response
+        file.write("[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY\n")
+    else:    
+        # Else loop all cash deficits and write them
+        for x in range(0,len(profit_deficits)):
+            # Calculate deficits into SGD terms and format to 2 decimal places
+            deficit = profit_deficits[x][1] * float(xchange_rate)
+            deficit = float("{:.2f}".format(deficit))
+            file.write("[PROFIT DEFICIT] DAY: " + str(profit_deficits[x][0]) + ", AMOUNT: SGD" + str(deficit) + "\n")
